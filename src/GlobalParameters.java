@@ -1,9 +1,9 @@
 
 public class GlobalParameters {
 	
-	protected static int populationSize;
-	protected static int numGenerations;
-	protected static int vectorLength;
+	protected static int populationSize = 20;
+	protected static int numGenerations = 100;
+	protected static int vectorLength = 10;
 	
 	protected static boolean Maximization = false;
 	

@@ -2,30 +2,45 @@ public class Solution implements Comparable{
 
 	protected double[] structure;
 	protected double fitness;
+	protected double[] velocity;
 	protected boolean alreadyCalculated;
 
 	public Solution() {
 
 		structure = new double[GlobalParameters.vectorLength];
 
-		for (int i = 0; i < structure.length - 1; i++) {
+		for (int i = 0; i < structure.length; i++) {
 			structure[i] = Math.random() * Math.PI;
 		}
 
 		alreadyCalculated = false;
 	}
 
+	// constructor for PSO algorithm
+	public Solution (int PSO){
+		structure = new double[GlobalParameters.vectorLength];
+		velocity = new double[GlobalParameters.vectorLength];
+
+		for (int i = 0; i < structure.length; i++) {
+			velocity[i] = 0; // valor default
+			structure[i] = (Math.random() * Math.abs(ParametersPS.MAX - ParametersPS.MIN)) + ParametersPS.MIN;
+		}
+	}
+	
 	public Solution myCopy() {
 		Solution newSolution = new Solution();
 		for (int i = 0; i < GlobalParameters.vectorLength; i++) {
 			newSolution.structure[i] = this.structure[i];
 		}
+		newSolution.fitness();
 		return newSolution;
 	}
 
 	public double fitness() {
 
-		if (!alreadyCalculated) {
+//		if (!alreadyCalculated) {
+		
+		fitness = 0.0;
 
 			for (int i = 0; i < GlobalParameters.vectorLength; i++) {
 				fitness += Math.sin(structure[i])
@@ -34,9 +49,9 @@ public class Solution implements Comparable{
 
 			fitness *= -1.0;
 
-			alreadyCalculated = true;
-		}
-
+//			alreadyCalculated = true;
+//		}
+			
 		return fitness;
 
 	}
