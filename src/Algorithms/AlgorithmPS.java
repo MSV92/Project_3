@@ -1,9 +1,17 @@
+package Algorithms;
+import org.jfree.chart.demo.XYSeriesDemo;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.ui.RefineryUtilities;
+
+import Parameters.*;
+import Parameters.GlobalParameters;
+import Parameters.ParametersPS;
 
 public class AlgorithmPS {
 	
 	Solution[] population = new Solution[GlobalParameters.populationSize];
 	Solution[] localBest = new Solution[GlobalParameters.populationSize];
-	Solution globalBest = new Solution();
+	public Solution globalBest = new Solution();
 
 	public AlgorithmPS() {
 		
@@ -13,8 +21,8 @@ public class AlgorithmPS {
 		}
 	}
 	
-	protected void executePS(){
-		
+	public void executePS(){
+		XYSeries series = new XYSeries("FITNESS");
 		globalBest = best();
 
 		// Main loop of PSO
@@ -48,10 +56,15 @@ public class AlgorithmPS {
 				if (population[i].betterOrEqual(globalBest))
 					globalBest = population[i].myCopy();
 
+			
 			} // end of update of each individual
-
+			series.add(gen, globalBest.fitness);
+			
 		} // end of main loop of PSO
-		
+		final XYSeriesDemo demo = new XYSeriesDemo("XY Series Demo", series);
+	    demo.pack();
+	    RefineryUtilities.centerFrameOnScreen(demo);
+	    demo.setVisible(true);
 	}
 	
 	protected Solution best() {

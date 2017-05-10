@@ -1,21 +1,29 @@
+package Algorithms;
 import java.util.Arrays;
 import java.util.Random;
 
+import org.jfree.chart.demo.XYSeriesDemo;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.ui.RefineryUtilities;
+
+import Parameters.GlobalParameters;
+import Parameters.ParametersGA;
+import Parameters.*;
 public class AlgorithmGA {
 
 	Solution[] population = new Solution[GlobalParameters.populationSize];
 	Solution[] newPopulation = new Solution[GlobalParameters.populationSize];
-	Solution bestIndividual = new Solution();
-
-	AlgorithmGA() {
+	public Solution bestIndividual = new Solution();
+	
+	public AlgorithmGA() {
 		for (int i = 0; i < GlobalParameters.populationSize; i++) {
 			population[i] = new Solution();
 		}
 
 	}
 
-	protected void executeGA() {
-
+	public void executeGA() {
+		XYSeries series = new XYSeries("FITNESS");
 		bestIndividual = bestIndividual(this.population);
 
 		for (int gen = 0; gen < GlobalParameters.numGenerations; gen++) {
@@ -76,8 +84,13 @@ public class AlgorithmGA {
 
 			}
 			bestIndividual = bestIndividual(this.population);
+			series.add(gen, bestIndividual.fitness);
 
 		}
+		final XYSeriesDemo demo = new XYSeriesDemo("XY Series Demo", series);
+	    demo.pack();
+	    RefineryUtilities.centerFrameOnScreen(demo);
+	    demo.setVisible(true);
 
 	}
 

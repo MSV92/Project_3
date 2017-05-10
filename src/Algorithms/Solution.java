@@ -1,7 +1,11 @@
+package Algorithms;
+import Parameters.GlobalParameters;
+import Parameters.ParametersPS;
+
 public class Solution implements Comparable{
 
-	protected double[] structure;
-	protected double fitness;
+	public double[] structure;
+	public double fitness;
 	protected double[] velocity;
 	protected boolean alreadyCalculated;
 
